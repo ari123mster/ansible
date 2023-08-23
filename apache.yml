@@ -11,15 +11,19 @@
       name: apache2
       state: latest
     when: ansible_distribution == "Ubuntu" 
+  - name: php
+    apt:
+      name: php
+      state: latest   
   - name: php for apache
     apt:
       name: libapache2-mod-php
       state: latest
-  - name: php
-    apt:
-      name: php
-      state: latest 
   - name: database mysql
     apt:
       name: mysql-server
+      state: latest
+  - name: phpmyadmin
+    apt:
+      name: phpmyadmin
       state: latest
