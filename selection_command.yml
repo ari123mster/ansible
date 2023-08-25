@@ -1,0 +1,46 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+  - name: update packet
+    apt:
+      update_cache: yes
+
+- hosts: Web_Servers
+  become: true
+  tasks:
+  - name: install web-server-apache
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+        - php
+        - php-mbstring
+        - php-xmlrpc
+        - php-soap
+        - php-gd
+        - php-xml
+        - php-cli
+        - php-zip
+        - php-bcmath
+        - php-tokenizer
+        - php-json
+        - php-pear
+
+      state: latest
+  - name: copy web
+    ansible.builtin.copy:
+      src: /var/www/html/index.php
+      dest: /var/www/html/index.php
+      owner: root
+      group: root
+      mode: '755'
+- hosts: DB_Servers
+  become: true
+  tasks:
+  - name: Install DB_Servers
+    apt:
+      name:
+        - mysql-server
+        - mysql-client
