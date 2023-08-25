@@ -1,3 +1,6 @@
+[Web_Servers]
 osboxes@192.168.3.55
-osboxes@192.168.3.56
 peyank@103.169.233.251
+
+[DB_Servers]
+osboxes@192.168.3.56
