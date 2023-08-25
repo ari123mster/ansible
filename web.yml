@@ -13,7 +13,6 @@
         - libapache2-mod-php
         - php
         - mysql-server
-        - phpmyadmin
       state: latest
     when: ansible_distribution == "Ubuntu" 
   - name: copy folder web

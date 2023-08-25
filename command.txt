@@ -8,4 +8,5 @@ ansible all -m apt -a update_cache=true --become --ask-become-pass = contoh comm
 ansible all -m apt -a name=vim --become --ask-become-pass = contoh command install paket
 ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass = contoh commmand instal paket
 
-
+ansible-playbook --ask-become-pass web.yml = jalankan playbook
+ansible all -m setup -a "filter=ansible_distribution" = cek distribusi os
