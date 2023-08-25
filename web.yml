@@ -8,25 +8,14 @@
       update_cache: yes
   - name: install web-server-apache
     apt:
-      name: apache2
+      name:
+        - apache2
+        - libapache2-mod-php
+        - php
+        - mysql-server
+        - phpmyadmin
       state: latest
     when: ansible_distribution == "Ubuntu" 
-  - name: php
-    apt:
-      name: php
-      state: latest   
-  - name: php for apache
-    apt:
-      name: libapache2-mod-php
-      state: latest
-  - name: database mysql
-    apt:
-      name: mysql-server
-      state: latest
-  - name: phpmyadmin
-    apt:
-      name: phpmyadmin
-      state: latest
   - name: copy folder web
     copy:
       src: /var/www/html/
