@@ -31,8 +31,8 @@
       state: latest
   - name: copy web
     ansible.builtin.copy:
-      src: /var/www/html/index.php
-      dest: /var/www/html/index.php
+      src: /var/www/html/web
+      dest: /var/www/html/web
       owner: root
       group: root
       mode: '755'
