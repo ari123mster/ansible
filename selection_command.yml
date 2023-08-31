@@ -11,6 +11,7 @@
   become: true
   tasks:
   - name: install web-server-apache
+    tags: apache2,php
     apt:
       name:
         - apache2
@@ -40,6 +41,7 @@
   become: true
   tasks:
   - name: Install DB_Servers
+    tags: mysql
     apt:
       name:
         - mysql-server
