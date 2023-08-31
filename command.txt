@@ -10,3 +10,4 @@ ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass = con
 
 ansible-playbook --ask-become-pass web.yml = jalankan playbook
 ansible all -m setup -a "filter=ansible_distribution" = cek distribusi os
+ansible-playbook --list-tags selection_command.yml = cek tags di file yml
