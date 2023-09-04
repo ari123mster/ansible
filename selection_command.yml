@@ -31,12 +31,32 @@
 
       state: latest
   - name: copy web
+    tags: apache2,php
     ansible.builtin.copy:
       src: /var/www/html/web
       dest: /var/www/html/web
       owner: root
       group: root
       mode: '755'
+  - name: start web server 
+    tags: apache2
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+  - name: change server admin in conf apache2
+    tags: apache2
+    ansible.builtin.lineinfile:
+      path: /etc/apache2/sites-available/000-default.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin enryu@localhost
+    register: apache2
+  - name: restart service apache2
+    tags: apache2
+    service:
+      name: apache2
+      state: restarted
+    when: apache2.changed
 - hosts: DB_Servers
   become: true
   tasks:
@@ -46,3 +66,42 @@
       name:
         - mysql-server
         - mysql-client
+
+- hosts: Workstation
+  become: true
+  tasks:
+  - name: install unzip
+    package:
+      name: unzip
+
+  - name: install teraforms
+    tags: teraforms
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/1.5.6/terraform_1.5.6_linux_amd64.zip
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
+
+- hosts: all
+  become: true
+  tasks:
+  - name: create user with root groub
+    tags: user
+    user:
+      name: enryu
+      group: root
+  - name: adding key
+    tags: user
+    ansible.posix.authorized_key:
+      user: enryu
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ0fTLlciCjkERK13afhGBVyp3jQYQgdbmt7+JeXo1Z ansible"
+  - name: add sudoers
+    tags: user
+    ansible.builtin.copy:
+      src: sudoer_enryu
+      dest: /etc/sudoers.d/enryu
+      owner: root
+      group: root
+      mode: 0440
