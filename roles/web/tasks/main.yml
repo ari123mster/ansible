@@ -1,0 +1,47 @@
+  - name: install web-server-apache
+    tags: apache2,php
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+        - php
+        - php-mbstring
+        - php-xmlrpc
+        - php-soap
+        - php-gd
+        - php-xml
+        - php-cli
+        - php-zip
+        - php-bcmath
+        - php-tokenizer
+        - php-json
+        - php-pear
+
+      state: latest
+  - name: copy web
+    tags: apache2,php
+    ansible.builtin.copy:
+      src: /var/www/html/web
+      dest: /var/www/html/web
+      owner: root
+      group: root
+      mode: '755'
+  - name: start web server 
+    tags: apache2
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+  - name: change server admin in conf apache2
+    tags: apache2
+    ansible.builtin.lineinfile:
+      path: /etc/apache2/sites-available/000-default.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin enryu@localhost
+    register: apache2
+  - name: restart service apache2
+    tags: apache2
+    service:
+      name: apache2
+      state: restarted
+    when: apache2.changed

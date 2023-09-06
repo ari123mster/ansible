@@ -1,0 +1,6 @@
+  - name: Install mysql-server
+    tags: mysql
+    apt:
+      name:
+        - mysql-server
+        - mysql-client

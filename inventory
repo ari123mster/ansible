@@ -1,8 +1,8 @@
 [Web_Servers]
-osboxes@192.168.100.45
+osboxes@192.168.100.55
 
 [DB_Servers]
-osboxes@192.168.100.46
+osboxes@192.168.100.56
 
 [Workstation]
-osboxes@192.168.100.47
+osboxes@192.168.100.54

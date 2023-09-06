@@ -60,7 +60,7 @@
 - hosts: DB_Servers
   become: true
   tasks:
-  - name: Install DB_Servers
+  - name: Install mysql-server
     tags: mysql
     apt:
       name:
@@ -74,7 +74,7 @@
     package:
       name: unzip
 
-  - name: install teraforms
+  - name: install teraforms with links
     tags: teraforms
     unarchive:
       src: https://releases.hashicorp.com/terraform/1.5.6/terraform_1.5.6_linux_amd64.zip
@@ -92,7 +92,7 @@
     user:
       name: enryu
       group: root
-  - name: adding key
+  - name: adding key in client
     tags: user
     ansible.posix.authorized_key:
       user: enryu

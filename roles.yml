@@ -1,0 +1,28 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+  - name: update packet
+    apt:
+      update_cache: yes
+
+- hosts: Web_Servers
+  become: true
+  roles:
+    - web
+
+- hosts: DB_Servers
+  become: true
+  roles:
+    - database
+
+- hosts: all
+  become: true
+  roles:
+    - user
+
+- hosts: Workstation
+  become: true
+  roles:
+    - workstation
